@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TASKS, POST_TASKS, GET_ERROR, POST_ERROR } from "./types";
+import { GET_TASKS, POST_TASKS, GET_ERROR} from "./types";
 
 export const getTasks = () => async dispatch => {
     const res = await axios.get('/api/v1/allTasks');
@@ -31,7 +31,7 @@ export const postTasks = (formData) => async dispatch => {
     } catch(err){
         const errors = err.response.data.errors
         dispatch({
-            type:POST_ERROR,
+            type:GET_ERROR,
             payload:{msg:err.response.statusText, status:err.response.status}
         })
     }

@@ -1,4 +1,4 @@
-import { GET_TASKS, POST_TASKS, GET_ERROR } from "../actions/types";
+import { GET_TASKS, POST_TASKS, GET_ERROR, DELETE_TASK } from "../actions/types";
 
 const initialState = {
     tasks: null,
@@ -22,6 +22,13 @@ export default function(state = initialState, action){
             tasks: [payload.task, ...state.tasks],
             loading: false
         }
+        case DELETE_TASK:
+            console.log(payload.id)
+            return {
+                ...state,
+                tasks: state.tasks.filter(task => task._id !== payload),
+                loading: false
+            }
         case GET_ERROR:
         return {
             ...state,

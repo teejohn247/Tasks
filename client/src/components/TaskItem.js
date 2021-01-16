@@ -1,17 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteTask } from '../actions/tasks';
 
 
-const TaskItem = ({task:{ _id, task_by,  task_for, deadline, label, main_task, date}}) => {
+const TaskItem = ({deleteTask,task:{ _id, task_by,  task_for, deadline, label, main_task, date}}) => {
     console.log(_id)
         return (
             <div className="row" style={{ borderTop: 'solid 1px #e8e8e8', borderBottom: 'solid 1px #e8e8e8', padding: 10, marginLeft: 0, width: '100%' }}>
             <div className="col-md-2" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 <input type="checkbox" />
                 <span className="star-icon fa fa-pencil" />
-                <span className="star-icon fa fa-times" />
-
+                <span className="star-icon fa fa-times" onClick = {e => deleteTask(_id)} />
             </div>
             <div className="col-md-8" style={{ textAlign: 'left' }}>{main_task}<br />
             <span className="label label-default">{label}</span>
@@ -28,6 +28,9 @@ const TaskItem = ({task:{ _id, task_by,  task_for, deadline, label, main_task, d
     
     TaskItem.PropTypes = {
         task: PropTypes.object.isRequired,
+        deleteTask: PropTypes.func.isRequired
     }
-  
-    export default connect()(TaskItem);
+    const mapStateToProps = (state) =>({
+        tasks: state.tasks,
+    })
+    export default connect(mapStateToProps, { deleteTask })(TaskItem);

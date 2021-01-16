@@ -17,10 +17,6 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading } }) => {
     const [taskBy, setTaskBy] = useState('');
     const [taskFor, setTaskFor] = useState('');
     const [taskLabel, setTaskLabel] = useState('');
-
-
-
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 

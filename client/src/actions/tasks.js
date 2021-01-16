@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TASKS, POST_TASKS, GET_ERROR} from "./types";
+import { GET_TASKS, POST_TASKS, DELETE_TASK, GET_ERROR} from "./types";
 
 export const getTasks = () => async dispatch => {
     const res = await axios.get('https://moore-advice-task.herokuapp.com/api/v1/allTask');
@@ -15,6 +15,22 @@ export const getTasks = () => async dispatch => {
     })
 }
 }
+
+export const deleteTask = (id) => async dispatch => {
+    await axios.delete(`https://moore-advice-task.herokuapp.com/api/v1/delTask/${id}`);
+      try{
+      dispatch({
+          type: DELETE_TASK,
+          payload: id
+      });
+    //   dispatch(setAlert('Task removed', 'success'))
+  } catch (err) {
+      dispatch({
+          type: GET_ERROR,
+          payload:{ status: err.response.status}
+      })
+  }
+  }
 
 export const postTasks = (formData) => async dispatch => {
     const config = {

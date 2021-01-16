@@ -1,16 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { getTasks } from '../actions/tasks';
 import { postTasks } from '../actions/tasks';
 import Spinner from './layout/Spinner';
 import TaskItem from './TaskItem';
+import { setAlert } from '../actions/alert';
 import Modal from 'react-bootstrap/Modal';
 
 
 
 
-const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading } }) => {
+const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading, success } }) => {
+    const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const [task, setTask] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -24,10 +26,13 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading } }) => {
         getTasks();
     }, []);
 
-    const handleForm = () => {
+    const handleForm = async() => {
         if (task == "" || taskBy == "" || taskBy == "" || taskFor == "" || taskLabel == "") {
+        dispatch(setAlert('One or more input fields is empty', 'danger'))
+            
             return;
         } else {
+            
             
             let formData = {
                 "task_by": taskBy,
@@ -37,7 +42,10 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading } }) => {
                 "main_task": task
             }
             console.log(formData)
-            postTasks(formData)
+            await postTasks(formData)
+            if(success == true){
+                setShow(false)
+            }
         }
     }
 

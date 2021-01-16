@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_TASKS, POST_TASKS, GET_ERROR} from "./types";
 
 export const getTasks = () => async dispatch => {
-    const res = await axios.get('/api/v1/allTasks');
+    const res = await axios.get('https://moore-advice-task.herokuapp.com/api/v1/allTask');
     try{
     dispatch({
         type: GET_TASKS,
@@ -23,7 +23,7 @@ export const postTasks = (formData) => async dispatch => {
         }
     }
     try{
-        const res = await axios.post('/api/v1/postTasks', formData, config);
+        const res = await axios.post('https://moore-advice-task.herokuapp.com/api/v1/addTask', formData, config);
         dispatch({
             type:POST_TASKS,
             payload: res.data

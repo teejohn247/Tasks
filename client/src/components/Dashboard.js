@@ -1,8 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+// import {Button} from 'react-bootstrap';
+
 
 
 
 const Dashboard = () => {
+    const [show, setShow] = useState(false);
+
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <Fragment>
       
@@ -19,7 +27,7 @@ const Dashboard = () => {
                             <div className="menu">
                                 <aside id="sidebar" className="nano">
                                     <div className="nano-content">
-                                        <div><button type="button" className="btn add-task btn-primary"><span> </span>ADD TASK<span> </span></button></div>
+                                        <div><button type="button" onClick={handleShow} className="btn add-task btn-primary"><span> </span>ADD TASK<span> </span></button></div>
                                         <div className="separator" />
                                         <div className="menu-segment">
                                             <ul>
@@ -42,7 +50,7 @@ const Dashboard = () => {
                                         <input type="checkbox" />
                                         <span className="star-icon fa fa-star" />
                                     </div>
-                                    <div className="col-md-8" style={{ textAlign: 'left' }}>Proident tempor est nulla irure ad est<br />
+                                    <div className="col-md-8" style={{ textAlign: 'left' }}>Test<br />
                                         <span className="label label-default">Default Label</span>
                                         <span className="label label-default" style={{ backgroundColor: '#f5222d' }}>HTML</span>
                                     </div>
@@ -51,6 +59,21 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                            
+                        <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Footer>
+                            <button onClick={handleClose}>
+                            Close
+                            </button>
+                            <button onClick={handleClose}>
+                            Save Changes
+                            </button>
+                        </Modal.Footer>
+                        </Modal>
                         </div>
                     
                     </div>

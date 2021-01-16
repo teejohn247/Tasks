@@ -20,7 +20,9 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading, success } }) 
     const [taskFor, setTaskFor] = useState('');
     const [taskLabel, setTaskLabel] = useState('');
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+    }
 
     useEffect(() => {
         getTasks();
@@ -43,9 +45,13 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading, success } }) 
             }
             console.log(formData)
             await postTasks(formData)
-            if(success == true){
-                setShow(false)
-            }
+        
+            setShow(false)
+            setTask('');
+            setDeadline('');
+            setTaskBy('');
+            setTaskFor('');
+            setTaskLabel('');
         }
     }
 
@@ -60,12 +66,12 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading, success } }) 
                         <div className="content-wrapper">
                             <div className="container-fluid">
                                 {/* Breadcrumbs*/}
-                                <ol className="breadcrumb">
+                                {/* <ol className="breadcrumb">
                                     <li className="breadcrumb-item">
                                         <a href="#">Dashboard</a>
                                     </li>
                                     <li className="breadcrumb-item active">My Dashboard</li>
-                                </ol>
+                                </ol> */}
                                 <div className="grid-container">
                                     <div className="menu">
                                         <aside id="sidebar" className="nano">
@@ -73,30 +79,38 @@ const Dashboard = ({ postTasks, getTasks, tasks: { tasks, loading, success } }) 
                                                 <div><button type="button" onClick={handleShow} className="btn add-task btn-primary"><span> </span>ADD TASK<span> </span></button></div>
                                                 <div className="separator" />
                                                 <div className="menu-segment">
-                                                    <ul>
-                                                        <li><span className="gx-link"><i className="icon icon-star" /><span>Starred</span></span></li>
-                                                        <li><span className="gx-link">
-                                                            <a href="#">
-                                                                <i className="fa fa-fw fa-table" />
-                                                                <span>Starred</span></a></span></li><a href="#">
-                                                        </a>
+                                                    <ul className="all_links">
+                                                        <li><span className="gx-link"><i className="fa fa-fw fa-star" /><span className="starred">Starred</span></span></li>
+                                                        <li><span className="gx-link"><i className="fa fa-fw fa-clock-o" /><span className="starred">Priority</span></span></li>
+                                                        <li><span className="gx-link"><i className="fa fa-fw  fa-check-circle-o" /><span className="starred">Done</span></span></li>
+                                                        <li><span className="gx-link"><i className="fa fa-fw fa-share-square-o" /><span className="starred">Deleted</span></span></li>
+                                                        <li><span className="gx-link"><i className="fa fa-fw fa-trash-o" /><span className="starred">Deleted</span></span></li>
                                                     </ul>
                                                 </div>
                                                 <div className="separator" />
+                                                <h6 style={{textAlign:'left', margin:'15px'}}>Labels</h6>
+                                                <div className="menu-segment">
+                                                    <ul className="all_links">
+                                                        <li><span className="gx-link"><i className="dot-1" /><span className="starred">HTML</span></span></li>
+                                                        <li><span className="gx-link"><i  className="dot-2" /><span className="starred">CSS</span></span></li>
+                                                        <li><span className="gx-link"><i  className="dot-3" /><span className="starred">REACT</span></span></li>
+                                                        <li><span className="gx-link"><i  className="dot-4" /><span className="starred">JQUERY</span></span></li>
+                                                    </ul>
+                                                </div>
                                                 <div className="bottom-padding" />
                                             </div>
                                         </aside>
                                     </div>
                                     <div className="main">
+                                        <br></br>
                                         {tasks.map(task => (
                                             <TaskItem key={task._id} task={task} />
                                         ))}
-
                                     </div>
 
                                     <Modal show={show} onHide={handleClose}>
                                         <Modal.Header closeButton>
-                                            <Modal.Title>Modal heading</Modal.Title>
+                                            <Modal.Title>Add Task</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>
                                             <div className="form-group">

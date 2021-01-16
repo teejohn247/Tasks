@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const Alert = ({ alerts }) => 
     alerts !== null && alerts.length > 0 && alerts.map(alert => (
-        <div style={{marginTop:"100px",marginLeft:"auto",position:"fixed",left:"90%",zIndex:"99"}} key = {alert.id} className ={`alert alert-${alert.alertType}`}>
+        <div style={{marginTop:"70px",marginLeft:"auto",position:"fixed",left:"90%",zIndex:"99"}} key = {alert.id} className ={`alert alert-${alert.alertType}`}>
         {alert.msg}
         </div>
     ));
